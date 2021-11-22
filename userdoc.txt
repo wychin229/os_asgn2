@@ -1,0 +1,158 @@
+Student Name : Chin Wen Yuan
+Student ID   : 29975239
+
+User Documentation
+A. Compilation
+[1] First, user are to compile the c programs (taskNUM-29975239.c), where NUM is
+   1/2/3. 
+   
+   Before running the command lines below, please ensure you have the following
+   files within the same directory of your c programs.
+   - pcb.h
+   - process.h 
+   These are the header files required to compile the files.
+   
+   Then,compilation can be done by going to the directory holding the .c file 
+   and run the following commands in the terminal.
+   
+   gcc task1-29975239.c -o task1
+   gcc task2-29975239.c -o task2
+   gcc task3-29975239.c -o task3
+   
+   the above command lines entries will compile the program and produce 3 
+   executable name "task1","task2" and "task3".
+   
+   *In order to compile and run the program in the correct directory, you can 
+   either use the cd command to cd to the appropriate directory. Or you can use
+   Files (File manager/explorer) to navigate to the directory saving the .c file
+   and right-click on the mouse and select the "Open in terminal" option. This will
+   open the terminal and land you on the current directory. 
+
+[2] After the c program has compiled successfully, you can see that there are 3
+   executable files within the current directory. This are the compiled c program.
+   
+B. Program Manual
+All three programs (task1, task2 and task3) has the same command line syntax 
+and each program simulates a different scheduling algorithm.
+
+[1] Non-preemptive scheduling (First Come First Serve)
+Name:
+	task1 - The following program is a scheduling program, which 
+			   simulates the FCFS scheduling algorithm for processes. 
+
+Syntax:
+	./task1 [sourcefile] 
+	
+	[sourcefile]
+		The absolute file path of the source text file to be used.
+		(Ex. /home/student/Desktop/FIT2100/x.txt)
+		Default is the processes.txt of the current directory. Hence, if this is
+		not specified, please create a non-empty processes.txt in the current
+		directory.
+
+Description:
+	The program will simulate scheduling based on the processes found from the
+	input. After each process termination, it will append the calculated values 
+	(process name,wait time, turnaround time and deadline met) into 
+	"results-task1.txt".
+	
+	*WARNING, before running this program, please ensure that "results-task1.txt" 
+	is removed from the current directory as newly calculated values in this 
+	run of the program would be appended into it (not desired).
+
+[2] Preemptive scheduling (Shortest Remaining Time Next with time quantum = 3)
+Name:
+	task2 - The following program is a scheduling program, which 
+			   simulates the SRTN scheduling algorithm with a time quantum of
+			   3 for processes. 
+
+Syntax:
+	./task2 [sourcefile] 
+	
+	[sourcefile]
+		The absolute file path of the source text file to be used.
+		(Ex. /home/student/Desktop/FIT2100/x.txt)
+		Default is the processes.txt of the current directory. Hence, if this is
+		not specified, please create a non-empty processes.txt in the current
+		directory.
+
+Description:
+	The program will simulate scheduling based on the processes found from the
+	input. After each process termination, it will append the calculated values 
+	(process name,wait time, turnaround time and deadline met) into 
+	"results-task2.txt".
+	
+	*WARNING, before running this program, please ensure that "results-task2.txt" 
+	is removed from the current directory as newly calculated values in this 
+	run of the program would be appended into it (not desired).
+
+Justification:
+	If there are more than one process with the same remaining time, the one which
+	arrived earlier/enter the PCB array first will be chosen for execution.
+
+[3] Deadline-based scheduling (Earliest Deadline First)
+Name:
+	task3 - The following program is a scheduling program, which 
+			   simulates the EDF scheduling algorithm for processes. 
+
+Syntax:
+	./task3 [sourcefile] 
+	
+	[sourcefile]
+		The absolute file path of the source text file to be used.
+		(Ex. /home/student/Desktop/FIT2100/x.txt)
+		Default is the processes.txt of the current directory. Hence, if this is
+		not specified, please create a non-empty processes.txt in the current
+		directory.
+
+Description:
+	The program will simulate scheduling based on the processes found from the
+	input. After each process termination, it will append the calculated values 
+	(process name,wait time, turnaround time and deadline met) into 
+	"results-task3.txt".
+	
+	*WARNING, before running this program, please ensure that "results-task3.txt" 
+	is removed from the current directory as newly calculated values in this 
+	run of the program would be appended into it (not desired).
+
+Addition Dicussion about EDF:
+- Why and How
+In Earlist Deadline First algorithm, at every scheduling point (clock time) the
+scheduler schedules the task that have the earliest deadline for execution.
+Based on my research online, EDF is said to be an optimal dynamic priority-driven
+scheduling algorithm. It priorities the deadline of each process, earliest (shortest)
+deadline gets the highest priority. Hence, it enables more process to met their
+respective deadline. 
+- Scenario used
+I have used the same processes as the ones in the assignment specification sheet.
+	P1 0 3 5
+	P2 1 6 7
+	P3 4 4 6
+	P4 6 2 2
+And we compare the result of EDF with FCFS and SRTN (q=3):
+	FCFS 
+		P1 0 3 1
+		P2 2 8 0
+		P3 5 9 0
+		P4 7 9 0
+	In FCFS, only 1 deadline was met.
+
+	STRN, q=3
+		P1 0 3 1
+		P4 0 2 1
+		P2 2 10 0
+		P3 7 11 0
+	In STRN (q=3), 2 deadlines were met.
+
+	EDF
+		P1 0 3 1
+		P4 0 2 1
+		P3 0 6 1
+		P2 2 14 0
+	In EDF, 3 deadlines were met.
+We can see that, since EDF priorities the deadlines. Hence, more deadline were
+met as a result.
+
+*Note, the above results are produced by running each scheduling program with 
+the same input. 
+*The last column in the result indicates if the deadline was met (1 - met, 0 - not met).
